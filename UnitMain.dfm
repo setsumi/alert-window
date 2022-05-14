@@ -1,11 +1,9 @@
 object FormMain: TFormMain
   Left = 230
   Top = 233
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
   Caption = 'Alert Window'
-  ClientHeight = 381
-  ClientWidth = 625
+  ClientHeight = 371
+  ClientWidth = 604
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -51,41 +49,47 @@ object FormMain: TFormMain
   Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  DesignSize = (
+    604
+    371)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 24
+    Left = 16
     Top = 8
     Width = 59
     Height = 13
     Caption = 'Event Name'
   end
   object Label2: TLabel
-    Left = 24
+    Left = 16
     Top = 56
     Width = 84
     Height = 13
     Caption = 'Event Description'
   end
   object Label3: TLabel
-    Left = 24
+    Left = 16
     Top = 184
     Width = 66
     Height = 13
     Caption = 'EventPreview'
   end
   object Label4: TLabel
-    Left = 408
-    Top = 8
+    Left = 395
+    Top = 7
     Width = 52
     Height = 13
+    Anchors = [akTop, akRight]
     Caption = 'Events List'
+    ExplicitLeft = 406
   end
   object RichEditPreview: TRichEdit
-    Left = 24
+    Left = 16
     Top = 200
-    Width = 265
+    Width = 273
     Height = 161
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -95,65 +99,80 @@ object FormMain: TFormMain
       'RichEditPreview')
     ParentFont = False
     ReadOnly = True
+    ScrollBars = ssBoth
     TabOrder = 2
     Zoom = 100
   end
   object EditName: TEdit
-    Left = 24
+    Left = 16
     Top = 24
-    Width = 265
+    Width = 273
     Height = 21
+    Anchors = [akLeft, akTop, akRight]
     AutoSelect = False
     TabOrder = 0
     Text = 'EditName'
     OnChange = EditNameChange
   end
-  object MemoDescr: TMemo
-    Left = 24
-    Top = 72
-    Width = 265
-    Height = 97
-    Lines.Strings = (
-      'MemoDescr')
-    TabOrder = 1
-    OnChange = EditNameChange
-  end
   object ButtonAdd: TButton
-    Left = 312
-    Top = 24
+    Left = 301
+    Top = 22
     Width = 75
     Height = 25
-    Caption = 'Add'
+    Anchors = [akTop, akRight]
+    Caption = 'Add =>'
     TabOrder = 3
     OnClick = ButtonAddClick
   end
   object ButtonApply: TButton
-    Left = 312
-    Top = 56
+    Left = 301
+    Top = 53
     Width = 75
     Height = 25
-    Caption = 'Apply'
+    Anchors = [akTop, akRight]
+    Caption = 'Apply =>'
     TabOrder = 4
     OnClick = ButtonApplyClick
   end
   object ButtonDelete: TButton
-    Left = 312
-    Top = 88
+    Left = 301
+    Top = 85
     Width = 75
     Height = 25
-    Caption = 'Delete'
+    Anchors = [akTop, akRight]
+    Caption = 'Delete <='
     TabOrder = 5
     OnClick = ButtonDeleteClick
   end
   object ListBoxEvents: TListBox
-    Left = 408
+    Left = 395
     Top = 24
-    Width = 193
+    Width = 195
     Height = 337
+    Anchors = [akTop, akRight, akBottom]
     ItemHeight = 13
     TabOrder = 6
     OnKeyUp = ListBoxEventsKeyUp
     OnMouseUp = ListBoxEventsMouseUp
+  end
+  object MemoDescr: TRichEdit
+    Left = 16
+    Top = 75
+    Width = 273
+    Height = 103
+    Anchors = [akLeft, akTop, akRight]
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    Lines.Strings = (
+      'MemoDescr')
+    ParentFont = False
+    ScrollBars = ssBoth
+    TabOrder = 1
+    Zoom = 100
+    OnChange = MemoDescrChange
   end
   object Timer1: TTimer
     Interval = 1

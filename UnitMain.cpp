@@ -1,7 +1,11 @@
-// ---------------------------------------------------------------------------
+п»ї// ---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
+
+#include <XMLDoc.hpp>
+// #include <XMLIntf.hpp>
+// #include <ComObj.hpp>
 
 #include "UnitMain.h"
 #include "UnitAlert.h"
@@ -13,15 +17,30 @@ TFormMain *FormMain;
 using namespace std;
 
 // ---------------------------------------------------------------------------
+String tl_GetModuleName()
+{
+	wchar_t buf[MAX_PATH];
+	GetModuleFileName(NULL, buf, MAX_PATH);
+	return (String)buf;
+}
+
+// ---------------------------------------------------------------------------
+String tl_GetProgramPath() // path with trailing '\'
+{
+	static String Path = tl_GetModuleName();
+	return Path.SubString(1, Path.LastDelimiter(L"\\"));
+}
+
+// ---------------------------------------------------------------------------
 void TFormMain::PreviewEvent(TRichEdit *pedit)
 {
-	pedit->DefAttributes->Name = "MS Sans Serif";
+	pedit->DefAttributes->Name = L"MS Sans Serif";
 	pedit->DefAttributes->Size = 24;
 	pedit->DefAttributes->Color = clRed;
 	pedit->DefAttributes->Style = pedit->DefAttributes->Style << fsBold;
 
 	pedit->Lines->Text = EditName->Text;
-	pedit->Lines->Add("");
+	pedit->Lines->Add(L"");
 
 	pedit->SelAttributes->Size = 12;
 	pedit->SelAttributes->Color = clBlack;
@@ -45,61 +64,67 @@ void TFormMain::EventSelected()
 // ---------------------------------------------------------------------------
 void TFormMain::Save()
 {
-	int it1, it2;
-	AnsiString str1;
+	CoInitialize(0);
+	String str1;
+	_di_IXMLDocument document = interface_cast<Xmlintf::IXMLDocument>
+		(new TXMLDocument(NULL));
+	document->Active = true;
+	document->SetEncoding(L"UTF-8");
+	document->Options = TXMLDocOptions() << doNodeAutoIndent;
+	_di_IXMLNode root = document->CreateNode(L"Root", ntElement, L"");
+	document->DocumentElement = root;
 
-	str1.printf("%sEvents.lsb", tl_GetProgramPath());
-	fstream fs(str1.c_str(), ios::out | ios::binary | ios::trunc);
-
-	it1 = pEveLst->Count;
-	fs.write((char*)&it1, sizeof(it1));
-	for (int i = 0; i < it1; i++)
+	for (int i = 0; i < pEveLst->Count; i++)
 	{
 		tEve *peve = (tEve*)pEveLst->Items[i];
-		it2 = peve->Name.Length();
-		fs.write((char*)&it2, sizeof(it2));
-		fs.write((char*)peve->Name.c_str(), it2);
-		it2 = peve->Descr.Length();
-		fs.write((char*)&it2, sizeof(it2));
-		fs.write((char*)peve->Descr.c_str(), it2);
+		_di_IXMLNode node1;
+		str1.printf(L"Event%d", i);
+		node1 = document->CreateNode(str1, ntElement, L"");
+		node1->Attributes[L"Name"] = peve->Name;
+		node1->Attributes[L"Description"] = peve->Descr;
+		root->ChildNodes->Add(node1);
 	}
-	fs.close();
+
+	str1.printf(L"%sEvents.xml", tl_GetProgramPath());
+	document->SaveToFile(str1);
+	CoUninitialize();
 }
 
 // ---------------------------------------------------------------------------
 void TFormMain::Load()
 {
-	int it1, it2;
-	char *buf1;
-	AnsiString str1;
-
-	str1.printf("%sEvents.lsb", tl_GetProgramPath());
+	CoInitialize(0);
+	String str1;
+	str1.printf(L"%sEvents.xml", tl_GetProgramPath());
 	if (!FileExists(str1))
 		return;
-	fstream fs(str1.c_str(), ios::in | ios::binary);
 
-	fs.read((char*)&it1, sizeof(it1));
-	for (int i = 0; i < it1; i++)
+	const _di_IXMLDocument document = interface_cast<Xmlintf::IXMLDocument>
+		(new TXMLDocument(NULL));
+	document->LoadFromFile(str1);
+
+	// find root node
+	const _di_IXMLNode root = document->ChildNodes->FindNode(L"Root");
+	if (root != NULL)
 	{
-		tEve *peve = new tEve;
-
-		fs.read((char*)&it2, sizeof(it2));
-		buf1 = new char[it2 + 1];
-		*(buf1 + it2) = '\0';
-		fs.read(buf1, it2);
-		peve->Name = buf1;
-		delete[]buf1;
-
-		fs.read((char*)&it2, sizeof(it2));
-		buf1 = new char[it2 + 1];
-		*(buf1 + it2) = '\0';
-		fs.read(buf1, it2);
-		peve->Descr = buf1;
-		delete[]buf1;
-
-		pEveLst->Add(peve);
+		// traverse child nodes
+		for (int i = 0; i < root->ChildNodes->Count; i++)
+		{
+			tEve *peve = new tEve(L"read error", L"read error");
+			const _di_IXMLNode node = root->ChildNodes->Get(i);
+			// get attributes
+			if (node->HasAttribute(L"Name"))
+			{
+				peve->Name = node->Attributes[L"Name"];
+			}
+			if (node->HasAttribute(L"Description"))
+			{
+				peve->Descr = node->Attributes[L"Description"];
+			}
+			pEveLst->Add(peve);
+		}
 	}
-	fs.close();
+	CoUninitialize();
 }
 
 // ---------------------------------------------------------------------------
@@ -108,9 +133,9 @@ void TFormMain::UpdateListBox()
 	ListBoxEvents->Clear();
 	for (int i = 0; i < pEveLst->Count; i++)
 	{
-		AnsiString str1;
+		String str1;
 		tEve *peve = (tEve*)pEveLst->Items[i];
-		str1.printf("%d - %s", i, peve->Name);
+		str1.printf(L"%d - %s", i, peve->Name);
 		ListBoxEvents->Items->Add(str1);
 	}
 }
@@ -127,11 +152,17 @@ void __fastcall TFormMain::EditNameChange(TObject *Sender)
 }
 
 // ---------------------------------------------------------------------------
+void __fastcall TFormMain::MemoDescrChange(TObject *Sender)
+{
+	PreviewEvent(RichEditPreview);
+}
+
+// ---------------------------------------------------------------------------
 void __fastcall TFormMain::ButtonAddClick(TObject *Sender)
 {
 	if (EditName->Text.IsEmpty() || MemoDescr->Text.IsEmpty())
 	{
-		ShowMessage("Please input required data.");
+		ShowMessage(L"Please input required data.");
 		return;
 	}
 
@@ -149,12 +180,12 @@ void __fastcall TFormMain::ButtonApplyClick(TObject *Sender)
 	int ind = ListBoxEvents->ItemIndex;
 	if (ind == -1)
 	{
-		ShowMessage("No event selected.");
+		ShowMessage(L"No event selected.");
 		return;
 	}
 	if (EditName->Text.IsEmpty() || MemoDescr->Text.IsEmpty())
 	{
-		ShowMessage("Please input required data.");
+		ShowMessage(L"Please input required data.");
 		return;
 	}
 
@@ -171,7 +202,7 @@ void __fastcall TFormMain::ButtonDeleteClick(TObject *Sender)
 	int ind = ListBoxEvents->ItemIndex;
 	if (ind == -1)
 	{
-		ShowMessage("No event selected.");
+		ShowMessage(L"No event selected.");
 		return;
 	}
 	delete(tEve*)(pEveLst->Items[ind]);
@@ -183,8 +214,8 @@ void __fastcall TFormMain::ButtonDeleteClick(TObject *Sender)
 // ---------------------------------------------------------------------------
 void __fastcall TFormMain::FormCreate(TObject *Sender)
 {
-	EditName->Text = "";
-	MemoDescr->Text = "";
+	EditName->Text = L"";
+	MemoDescr->Text = L"";
 	RichEditPreview->Lines->Clear();
 
 	pEveLst = new TList;
@@ -213,54 +244,38 @@ void __fastcall TFormMain::ListBoxEventsMouseUp(TObject *Sender, TMouseButton Bu
 }
 
 // ---------------------------------------------------------------------------
-AnsiString tl_GetModuleName()
-{
-	wchar_t buf[MAX_PATH];
-	GetModuleFileName(NULL, buf, MAX_PATH);
-	return (AnsiString)buf;
-}
-
-// ---------------------------------------------------------------------------
-AnsiString tl_GetProgramPath() // пути всегда с завершающей косой
-{
-	static AnsiString Path = tl_GetModuleName();
-	return Path.SubString(1, Path.LastDelimiter("\\"));
-}
-
-// ---------------------------------------------------------------------------
 void __fastcall TFormMain::Timer1Timer(TObject *Sender)
 {
 	Timer1->Enabled = false;
-	AnsiString str1;
+	String str1;
 
-	if (ParamCount() == 0)
+	if (ParamCount() == 0) // show settings gui
 	{
-		// show settings gui
 	}
-	else if (ParamCount() == 1)
+	else if (ParamCount() == 1) // show alert
 	{
-		// show alert
-		int ind;
-
-		ind = ParamStr(1).ToIntDef(-1);
+		String parm = ParamStr(1);
+		int ind = parm.ToIntDef(-1);
 		if (ind == -1 || ind > pEveLst->Count - 1)
 		{
-			str1.printf("Invalid parameter. Found %d, must be from 0 to %d", ind,
+			str1.printf(L"Invalid parameter. Found %s, must be from 0 to %d", parm,
 				pEveLst->Count - 1);
 			ShowMessage(str1);
-			goto exit;
+			Close();
 		}
-		FormAlert->PreviewEvent(ind);
-		FormAlert->Show();
-		SetForegroundWindow(FormAlert->Handle);
+		else // good
+		{
+			FormAlert->PreviewEvent(ind);
+			FormAlert->Show();
+			SetForegroundWindow(FormAlert->Handle);
+		}
 	}
-	else
+	else // bad argument
 	{
-		// error
-		str1.printf("Invalid number of parameters. Found %d, must be 1", ParamCount());
+		str1.printf(L"Invalid number of parameters. Found %d, must be 1", ParamCount());
 		ShowMessage(str1);
+		Close();
 	}
-exit:
 }
 
 // ---------------------------------------------------------------------------

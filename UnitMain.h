@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------------------
+п»ї// ---------------------------------------------------------------------------
 
 #ifndef UnitMainH
 #define UnitMainH
@@ -17,13 +17,17 @@
 class tEve
 {
 public:
-	AnsiString Name;
-	AnsiString Descr;
-};
+	String Name;
+	String Descr;
 
-// ---------------------------------------------------------------------------
-AnsiString tl_GetModuleName();
-AnsiString tl_GetProgramPath(); // пути всегда с завершающей косой
+	tEve()
+	{
+	}
+
+	tEve(String name, String descr) : Name(name), Descr(descr)
+	{
+	}
+};
 
 // ---------------------------------------------------------------------------
 class TFormMain : public TForm
@@ -31,7 +35,6 @@ class TFormMain : public TForm
 __published: // IDE-managed Components
 	TRichEdit *RichEditPreview;
 	TEdit *EditName;
-	TMemo *MemoDescr;
 	TLabel *Label1;
 	TLabel *Label2;
 	TLabel *Label3;
@@ -41,6 +44,7 @@ __published: // IDE-managed Components
 	TListBox *ListBoxEvents;
 	TLabel *Label4;
 	TTimer *Timer1;
+	TRichEdit *MemoDescr;
 
 	void __fastcall EditNameChange(TObject *Sender);
 	void __fastcall ButtonAddClick(TObject *Sender);
@@ -52,6 +56,7 @@ __published: // IDE-managed Components
 	void __fastcall ListBoxEventsMouseUp(TObject *Sender, TMouseButton Button,
 		TShiftState Shift, int X, int Y);
 	void __fastcall Timer1Timer(TObject *Sender);
+	void __fastcall MemoDescrChange(TObject *Sender);
 
 private: // User declarations
 public: // User declarations

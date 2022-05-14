@@ -12,7 +12,6 @@
 /**/*.dll
 /**/*.lib
 /**/*.exe
-/**/*.lsb
 
 Win32
 Debug

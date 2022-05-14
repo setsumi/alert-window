@@ -1,4 +1,4 @@
-// ---------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
@@ -15,13 +15,13 @@ void TFormAlert::PreviewEvent(int ind)
 {
 	tEve *peve = (tEve*)FormMain->pEveLst->Items[ind];
 
-	RichEdit->DefAttributes->Name = "MS Sans Serif";
+	RichEdit->DefAttributes->Name = L"MS Sans Serif";
 	RichEdit->DefAttributes->Color = clRed;
 	RichEdit->DefAttributes->Size = 24;
 	RichEdit->DefAttributes->Style = RichEdit->DefAttributes->Style << fsBold;
 
 	RichEdit->Lines->Text = peve->Name;
-	RichEdit->Lines->Add("");
+	RichEdit->Lines->Add(L"");
 
 	RichEdit->SelAttributes->Color = clBlack;
 	RichEdit->SelAttributes->Size = 12;
