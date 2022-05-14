@@ -34,6 +34,7 @@ String tl_GetProgramPath() // path with trailing '\'
 // ---------------------------------------------------------------------------
 void TFormMain::PreviewEvent(TRichEdit *pedit)
 {
+	pedit->Lines->Clear();
 	pedit->DefAttributes->Name = L"MS Sans Serif";
 	pedit->DefAttributes->Size = 24;
 	pedit->DefAttributes->Color = clRed;
@@ -70,7 +71,7 @@ void TFormMain::Save()
 		(new TXMLDocument(NULL));
 	document->Active = true;
 	document->SetEncoding(L"UTF-8");
-	document->Options = TXMLDocOptions() << doNodeAutoIndent;
+	document->Options = document->Options << doNodeAutoIndent;
 	_di_IXMLNode root = document->CreateNode(L"Root", ntElement, L"");
 	document->DocumentElement = root;
 

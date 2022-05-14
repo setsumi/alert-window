@@ -1,11 +1,9 @@
 object FormAlert: TFormAlert
   Left = 267
   Top = 140
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
   Caption = 'Alert'
-  ClientHeight = 258
-  ClientWidth = 287
+  ClientHeight = 248
+  ClientWidth = 277
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -55,25 +53,27 @@ object FormAlert: TFormAlert
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   DesignSize = (
-    287
-    258)
+    277
+    248)
   PixelsPerInch = 96
   TextHeight = 13
   object ButtonClose: TButton
-    Left = 205
-    Top = 226
+    Left = 195
+    Top = 216
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Close'
     TabOrder = 0
     OnClick = ButtonCloseClick
+    ExplicitLeft = 205
+    ExplicitTop = 226
   end
   object RichEdit: TRichEdit
     Left = 8
     Top = 8
-    Width = 270
-    Height = 211
+    Width = 260
+    Height = 201
     Anchors = [akLeft, akTop, akRight, akBottom]
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -83,6 +83,7 @@ object FormAlert: TFormAlert
     Lines.Strings = (
       'RichEdit')
     ParentFont = False
+    ScrollBars = ssBoth
     TabOrder = 1
     Zoom = 100
   end
