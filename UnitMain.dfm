@@ -2,7 +2,7 @@ object FormMain: TFormMain
   Left = 230
   Top = 233
   Caption = 'Alert Window'
-  ClientHeight = 371
+  ClientHeight = 410
   ClientWidth = 604
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -51,7 +51,7 @@ object FormMain: TFormMain
   OnDestroy = FormDestroy
   DesignSize = (
     604
-    371)
+    410)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -63,7 +63,7 @@ object FormMain: TFormMain
   end
   object Label2: TLabel
     Left = 16
-    Top = 56
+    Top = 58
     Width = 84
     Height = 13
     Caption = 'Event Description'
@@ -71,9 +71,9 @@ object FormMain: TFormMain
   object Label3: TLabel
     Left = 16
     Top = 184
-    Width = 66
+    Width = 69
     Height = 13
-    Caption = 'EventPreview'
+    Caption = 'Event Preview'
   end
   object Label4: TLabel
     Left = 395
@@ -88,8 +88,9 @@ object FormMain: TFormMain
     Left = 16
     Top = 200
     Width = 273
-    Height = 161
+    Height = 185
     Anchors = [akLeft, akTop, akRight, akBottom]
+    Color = clBtnFace
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -102,6 +103,7 @@ object FormMain: TFormMain
     ScrollBars = ssBoth
     TabOrder = 2
     Zoom = 100
+    ExplicitHeight = 147
   end
   object EditName: TEdit
     Left = 16
@@ -148,12 +150,13 @@ object FormMain: TFormMain
     Left = 395
     Top = 24
     Width = 195
-    Height = 337
+    Height = 361
     Anchors = [akTop, akRight, akBottom]
     ItemHeight = 13
     TabOrder = 6
     OnKeyUp = ListBoxEventsKeyUp
     OnMouseUp = ListBoxEventsMouseUp
+    ExplicitHeight = 323
   end
   object MemoDescr: TRichEdit
     Left = 16
@@ -173,6 +176,22 @@ object FormMain: TFormMain
     TabOrder = 1
     Zoom = 100
     OnChange = MemoDescrChange
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 391
+    Width = 604
+    Height = 19
+    Panels = <
+      item
+        Text = 
+          'Usage: AlertWindow.exe 0  // show first alert   AlertWindow.exe ' +
+          '"Event Name"  // show specific alert'
+        Width = 50
+      end>
+    ExplicitLeft = 440
+    ExplicitTop = 368
+    ExplicitWidth = 0
   end
   object Timer1: TTimer
     Interval = 1

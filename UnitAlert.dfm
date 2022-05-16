@@ -66,8 +66,6 @@ object FormAlert: TFormAlert
     Caption = 'Close'
     TabOrder = 0
     OnClick = ButtonCloseClick
-    ExplicitLeft = 205
-    ExplicitTop = 226
   end
   object RichEdit: TRichEdit
     Left = 8
@@ -83,8 +81,16 @@ object FormAlert: TFormAlert
     Lines.Strings = (
       'RichEdit')
     ParentFont = False
+    ReadOnly = True
     ScrollBars = ssBoth
     TabOrder = 1
     Zoom = 100
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 136
+    Top = 120
   end
 end

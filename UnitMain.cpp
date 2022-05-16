@@ -255,25 +255,37 @@ void __fastcall TFormMain::Timer1Timer(TObject *Sender)
 	}
 	else if (ParamCount() == 1) // show alert
 	{
-		String parm = ParamStr(1);
-		int ind = parm.ToIntDef(-1);
-		if (ind == -1 || ind > pEveLst->Count - 1)
+		const String parm = ParamStr(1);
+		const int ind = parm.ToIntDef(-1);
+
+		// 1. find event by name
+		for (int i = 0; i < pEveLst->Count; i++)
 		{
-			str1.printf(L"Invalid parameter. Found %s, must be from 0 to %d", parm,
-				pEveLst->Count - 1);
-			ShowMessage(str1);
-			Close();
+			tEve *peve = (tEve*)pEveLst->Items[i];
+			if (peve->Name == parm)
+			{
+				FormAlert->PreviewEvent(i);
+				FormAlert->Show();
+				return;
+			}
 		}
-		else // good
+
+		// 2. event by number
+		if (ind >= 0 && ind < pEveLst->Count)
 		{
 			FormAlert->PreviewEvent(ind);
 			FormAlert->Show();
-			SetForegroundWindow(FormAlert->Handle);
+			return;
 		}
+
+		// not found
+		str1.printf(L"Event \'%s\' not found.", parm);
+		ShowMessage(str1);
+		Close();
 	}
-	else // bad argument
+	else // wrong arguments
 	{
-		str1.printf(L"Invalid number of parameters. Found %d, must be 1", ParamCount());
+		str1.printf(L"Invalid number of parameters. Found %d, expected 1", ParamCount());
 		ShowMessage(str1);
 		Close();
 	}

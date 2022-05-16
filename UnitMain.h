@@ -45,6 +45,7 @@ __published: // IDE-managed Components
 	TLabel *Label4;
 	TTimer *Timer1;
 	TRichEdit *MemoDescr;
+	TStatusBar *StatusBar1;
 
 	void __fastcall EditNameChange(TObject *Sender);
 	void __fastcall ButtonAddClick(TObject *Sender);
