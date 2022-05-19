@@ -13,7 +13,9 @@
 /**/*.lib
 /**/*.exe
 
-Win32
+/__recovery
+/__history
+/Win32
 Debug
 Release
 /**/*.local
