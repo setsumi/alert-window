@@ -283,9 +283,19 @@ void __fastcall TFormMain::Timer1Timer(TObject *Sender)
 		ShowMessage(str1);
 		Close();
 	}
+	else if (ParamCount() == 2) // show alert with specified text
+	{
+		pEveLst->Clear();
+		tEve *peve = new tEve(ParamStr(1), ParamStr(2));
+		pEveLst->Add(peve);
+		FormAlert->PreviewEvent(0);
+		FormAlert->Show();
+		return;
+	}
 	else // wrong arguments
 	{
-		str1.printf(L"Invalid number of parameters. Found %d, expected 1", ParamCount());
+		str1.printf(L"Invalid number of parameters. Found %d, expected 1 or 2",
+			ParamCount());
 		ShowMessage(str1);
 		Close();
 	}

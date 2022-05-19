@@ -97,6 +97,7 @@ void __fastcall TFormAlert::FormClose(TObject *Sender, TCloseAction &Action)
 // ---------------------------------------------------------------------------
 void __fastcall TFormAlert::FormShow(TObject *Sender)
 {
+	MessageBeep(-1);
 	Timer1->Enabled = true;
 }
 
@@ -125,6 +126,5 @@ void __fastcall TFormAlert::Timer1Timer(TObject *Sender)
 {
 	Timer1->Enabled = false;
 	BringWindowToFront(Handle);
-	MessageBeep(-1);
 }
 // ---------------------------------------------------------------------------

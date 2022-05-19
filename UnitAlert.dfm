@@ -88,7 +88,7 @@ object FormAlert: TFormAlert
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 1
+    Interval = 50
     OnTimer = Timer1Timer
     Left = 136
     Top = 120

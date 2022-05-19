@@ -103,7 +103,6 @@ object FormMain: TFormMain
     ScrollBars = ssBoth
     TabOrder = 2
     Zoom = 100
-    ExplicitHeight = 147
   end
   object EditName: TEdit
     Left = 16
@@ -156,7 +155,6 @@ object FormMain: TFormMain
     TabOrder = 6
     OnKeyUp = ListBoxEventsKeyUp
     OnMouseUp = ListBoxEventsMouseUp
-    ExplicitHeight = 323
   end
   object MemoDescr: TRichEdit
     Left = 16
@@ -185,13 +183,10 @@ object FormMain: TFormMain
     Panels = <
       item
         Text = 
-          'Usage: AlertWindow.exe 0  // show first alert   AlertWindow.exe ' +
-          '"Event Name"  // show specific alert'
+          'Usage: AlertWindow 0 // alert by number; AlertWindow "Name" // a' +
+          'lert by name; AlertWindow "Name" "Descr" // specified text'
         Width = 50
       end>
-    ExplicitLeft = 440
-    ExplicitTop = 368
-    ExplicitWidth = 0
   end
   object Timer1: TTimer
     Interval = 1
