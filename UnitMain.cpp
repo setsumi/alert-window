@@ -35,17 +35,16 @@ String tl_GetProgramPath() // path with trailing '\'
 void TFormMain::PreviewEvent(TRichEdit *pedit)
 {
 	pedit->Lines->Clear();
-	pedit->DefAttributes->Name = L"MS Sans Serif";
-	pedit->DefAttributes->Size = 24;
-	pedit->DefAttributes->Color = clRed;
+//	pedit->DefAttributes->Name = L"MS Sans Serif";
+	pedit->DefAttributes->Size = 12;
+	pedit->DefAttributes->Color = clBlack;
 	pedit->DefAttributes->Style = pedit->DefAttributes->Style << fsBold;
 
-	pedit->Lines->Text = EditName->Text;
+	pedit->SelAttributes->Size = 24;
+	pedit->SelAttributes->Color = clRed;
+	pedit->Lines->Add(EditName->Text);
+
 	pedit->Lines->Add(L"");
-
-	pedit->SelAttributes->Size = 12;
-	pedit->SelAttributes->Color = clBlack;
-
 	pedit->Lines->Add(MemoDescr->Text);
 }
 

@@ -2,8 +2,8 @@ object FormAlert: TFormAlert
   Left = 267
   Top = 140
   Caption = 'Alert'
-  ClientHeight = 248
-  ClientWidth = 277
+  ClientHeight = 259
+  ClientWidth = 334
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -53,29 +53,31 @@ object FormAlert: TFormAlert
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   DesignSize = (
-    277
-    248)
+    334
+    259)
   PixelsPerInch = 96
   TextHeight = 13
   object ButtonClose: TButton
-    Left = 195
-    Top = 216
+    Left = 252
+    Top = 227
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Close'
     TabOrder = 0
     OnClick = ButtonCloseClick
+    ExplicitLeft = 195
+    ExplicitTop = 216
   end
   object RichEdit: TRichEdit
     Left = 8
     Top = 8
-    Width = 260
-    Height = 201
+    Width = 317
+    Height = 212
     Anchors = [akLeft, akTop, akRight, akBottom]
-    Font.Charset = RUSSIAN_CHARSET
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     Lines.Strings = (
@@ -85,6 +87,8 @@ object FormAlert: TFormAlert
     ScrollBars = ssBoth
     TabOrder = 1
     Zoom = 100
+    ExplicitWidth = 260
+    ExplicitHeight = 201
   end
   object Timer1: TTimer
     Enabled = False

@@ -91,9 +91,9 @@ object FormMain: TFormMain
     Height = 185
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clBtnFace
-    Font.Charset = RUSSIAN_CHARSET
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     Lines.Strings = (
@@ -108,9 +108,15 @@ object FormMain: TFormMain
     Left = 16
     Top = 24
     Width = 273
-    Height = 21
+    Height = 23
     Anchors = [akLeft, akTop, akRight]
     AutoSelect = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 0
     Text = 'EditName'
     OnChange = EditNameChange
@@ -151,7 +157,16 @@ object FormMain: TFormMain
     Width = 195
     Height = 361
     Anchors = [akTop, akRight, akBottom]
-    ItemHeight = 13
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ItemHeight = 17
+    Items.Strings = (
+      'Hello'
+      'World')
+    ParentFont = False
     TabOrder = 6
     OnKeyUp = ListBoxEventsKeyUp
     OnMouseUp = ListBoxEventsMouseUp
@@ -162,10 +177,10 @@ object FormMain: TFormMain
     Width = 273
     Height = 103
     Anchors = [akLeft, akTop, akRight]
-    Font.Charset = RUSSIAN_CHARSET
+    Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
     Font.Style = []
     Lines.Strings = (
       'MemoDescr')

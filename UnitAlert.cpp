@@ -63,17 +63,16 @@ void TFormAlert::PreviewEvent(int ind)
 	tEve *peve = (tEve*)FormMain->pEveLst->Items[ind];
 
 	RichEdit->Lines->Clear();
-	RichEdit->DefAttributes->Name = L"MS Sans Serif";
-	RichEdit->DefAttributes->Color = clRed;
-	RichEdit->DefAttributes->Size = 24;
+//	RichEdit->DefAttributes->Name = L"MS Sans Serif";
+	RichEdit->DefAttributes->Size = 12;
+	RichEdit->DefAttributes->Color = clBlack;
 	RichEdit->DefAttributes->Style = RichEdit->DefAttributes->Style << fsBold;
 
-	RichEdit->Lines->Text = peve->Name;
+	RichEdit->SelAttributes->Size = 24;
+	RichEdit->SelAttributes->Color = clRed;
+	RichEdit->Lines->Add(peve->Name);
+
 	RichEdit->Lines->Add(L"");
-
-	RichEdit->SelAttributes->Color = clBlack;
-	RichEdit->SelAttributes->Size = 12;
-
 	RichEdit->Lines->Add(peve->Descr);
 }
 
