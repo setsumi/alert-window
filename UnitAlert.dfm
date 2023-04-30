@@ -66,8 +66,6 @@ object FormAlert: TFormAlert
     Caption = 'Close'
     TabOrder = 0
     OnClick = ButtonCloseClick
-    ExplicitLeft = 195
-    ExplicitTop = 216
   end
   object RichEdit: TRichEdit
     Left = 8
@@ -87,8 +85,6 @@ object FormAlert: TFormAlert
     ScrollBars = ssBoth
     TabOrder = 1
     Zoom = 100
-    ExplicitWidth = 260
-    ExplicitHeight = 201
   end
   object Timer1: TTimer
     Enabled = False

@@ -57,23 +57,23 @@ object FormMain: TFormMain
   object Label1: TLabel
     Left = 16
     Top = 8
-    Width = 59
+    Width = 31
     Height = 13
-    Caption = 'Event Name'
+    Caption = 'Name:'
   end
   object Label2: TLabel
     Left = 16
     Top = 58
-    Width = 84
+    Width = 56
     Height = 13
-    Caption = 'Event Description'
+    Caption = 'Description:'
   end
   object Label3: TLabel
     Left = 16
     Top = 184
-    Width = 69
+    Width = 41
     Height = 13
-    Caption = 'Event Preview'
+    Caption = 'Preview:'
   end
   object Label4: TLabel
     Left = 395
@@ -91,7 +91,7 @@ object FormMain: TFormMain
     Height = 185
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clBtnFace
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = SHIFTJIS_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
     Font.Name = 'MS Sans Serif'
@@ -177,7 +177,7 @@ object FormMain: TFormMain
     Width = 273
     Height = 103
     Anchors = [akLeft, akTop, akRight]
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = SHIFTJIS_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Segoe UI'

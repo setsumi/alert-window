@@ -63,7 +63,7 @@ void TFormAlert::PreviewEvent(int ind)
 	tEve *peve = (tEve*)FormMain->pEveLst->Items[ind];
 
 	RichEdit->Lines->Clear();
-//	RichEdit->DefAttributes->Name = L"MS Sans Serif";
+	// RichEdit->DefAttributes->Name = L"MS Sans Serif";
 	RichEdit->DefAttributes->Size = 12;
 	RichEdit->DefAttributes->Color = clBlack;
 	RichEdit->DefAttributes->Style = RichEdit->DefAttributes->Style << fsBold;
@@ -125,5 +125,8 @@ void __fastcall TFormAlert::Timer1Timer(TObject *Sender)
 {
 	Timer1->Enabled = false;
 	BringWindowToFront(Handle);
+	::SetWindowPos(Handle, HWND_TOP, 0, 0, 0, 0,
+		SWP_NOMOVE | SWP_NOSIZE | SWP_DRAWFRAME | SWP_FRAMECHANGED);
+
 }
 // ---------------------------------------------------------------------------

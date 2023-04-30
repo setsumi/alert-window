@@ -127,10 +127,11 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>media\Main.Ico</Icon_MainIcon>
         <UsePackages>false</UsePackages>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName) by furniture;FileVersion=1.1.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=;ProductName=;ProductVersion=1.1.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName) by furniture;FileVersion=1.1.2.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=;ProductName=;ProductVersion=1.1.2.0;Comments=</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
         <DynamicRTL>false</DynamicRTL>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Release>2</VerInfo_Release>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="AlertWindow.cpp">
@@ -187,8 +188,9 @@
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32250mt.dll" Class="DependencyModule">
+                <DeployFile LocalName=".\Win32\Debug\AlertWindow.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
+                        <RemoteName>AlertWindow.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -233,18 +235,17 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
-                    <Platform Name="Win64">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\AlertWindow.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32250mt.dll" Class="DependencyModule">
                     <Platform Name="Win32">
-                        <RemoteName>AlertWindow.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin64\cc64250mt.dll" Class="DependencyModule">
+                    <Platform Name="Win64">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'" LocalName="$(BDS)\bin64\cc64250.dll" Class="DependencyModule">
                     <Platform Name="Win64">
                         <Overwrite>true</Overwrite>
                     </Platform>
